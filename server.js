@@ -1,0 +1,24 @@
+import express from "express";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import connectDB from "./configs/db.js";
+import userRoute from "./routes/userRoute.js";
+import "dotenv/config";
+
+const app = express();
+const port = process.env.PORT || 4000;
+
+await connectDB();
+
+const allowedOrigins = ["http://localhost:5173"];
+
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors({ origin: allowedOrigins, credentials: true }));
+
+app.get("/", (req, res) => res.send("API is Working"));
+app.use("/api/user", userRoute);
+
+app.listen(port, () => {
+  console.log(`server is running on ${port}`);
+});
