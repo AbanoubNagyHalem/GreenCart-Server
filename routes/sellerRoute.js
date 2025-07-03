@@ -7,10 +7,10 @@ import {
 } from "../controllers/sellerController.js";
 import authSeller from "../middlewares/authSeller.js";
 
-const sellerRoute = express.Router();
+const sellerRouter = express.Router();
 
-sellerRoute.post("/login", sellerLogin);
-sellerRoute.get("/is-auth", authSeller, isSellerAuth);
-sellerRoute.get("/logout", sellerLogout);
+sellerRouter.post("/login", sellerLogin);
+sellerRouter.get("/is-auth", authSeller, isSellerAuth);
+sellerRouter.get("/logout", sellerLogout);
 
-export default sellerRoute;
+export default sellerRouter;
