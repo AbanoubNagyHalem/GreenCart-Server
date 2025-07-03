@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import connectDB from "./configs/db.js";
 import userRoute from "./routes/userRoute.js";
+import sellerRoute from "./routes/sellerRoute.js";
 import "dotenv/config";
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(cors({ origin: allowedOrigins, credentials: true }));
 
 app.get("/", (req, res) => res.send("API is Working"));
 app.use("/api/user", userRoute);
+app.use("/api/seller", sellerRoute);
 
 app.listen(port, () => {
   console.log(`server is running on ${port}`);
