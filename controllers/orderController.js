@@ -1,4 +1,5 @@
-import Product from "../models/Product";
+import Product from "../models/Product.js";
+import Order from "../models/Order.js";
 
 export const placeOrderCOD = async () => {
   try {
@@ -9,6 +10,21 @@ export const placeOrderCOD = async () => {
 
     let amount = await items.reduce(async (acc, item) => {
       const product = await Product.findById(item.product);
+      return (await acc) + product.offerPrice * item.quantity;
+    }, 0);
+
+    amount += Math.floor(amount * 0.02);
+
+    await Order.create({
+      userId,
+      items,
+      amount,
+      address,
+      paymentType: "COD",
     });
-  } catch (error) {}
+
+    return res.json({ success: true, message: "Order Pplaced Successfully" });
+  } catch (error) {
+    return res.json({ success: false, message: error.message });
+  }
 };
